@@ -1,20 +1,19 @@
 #include <stdlib.h>
 #include <GLUT/glut.h>
 
-int lastFrameTime = 0;
+GLfloat defaultWindowWidth = 640;
+GLfloat defaultWindowHeight = 480;
 
-GLfloat boxX = 0.0f;
+GLfloat boxWidth = 32.0f;
+GLfloat boxHeight = 32.0f;
+
+GLfloat boxX = (defaultWindowWidth / 2) - (boxWidth / 2);
 GLfloat boxY = 0.0f;
 
-GLfloat velocity = 128.0f;
-
-int directionX = 1;
-int directionY = 1;
-
-GLfloat boxWidth = 64.0f;
-GLfloat boxHeight = 64.0f;
+GLfloat velocity = 4.0f;
 
 void display();
+void keyPressed(unsigned char key, int x, int y);
 void idle();
 void reshape(int width, int height);
 
@@ -22,11 +21,12 @@ int main(int argc, char * argv[]) {
   glutInit(&argc, argv);
   
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-  glutInitWindowSize(640, 480);
+  glutInitWindowSize(defaultWindowWidth, defaultWindowHeight);
   
   glutCreateWindow("GLUT Basics");
 
   glutDisplayFunc(display);
+  glutKeyboardFunc(keyPressed);
   glutReshapeFunc(reshape);
   glutIdleFunc(idle);
   
@@ -36,33 +36,6 @@ int main(int argc, char * argv[]) {
 }
 
 void display(void) {
-  if (lastFrameTime == 0) {
-    lastFrameTime = glutGet(GLUT_ELAPSED_TIME);
-  }
-  
-  int now = glutGet(GLUT_ELAPSED_TIME);
-  int elapsedMilliseconds = now - lastFrameTime;
-  float elapsedTime = elapsedMilliseconds / 1000.0f;
-  lastFrameTime = now;
-  
-  int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
-  int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
-  
-  boxX += velocity * elapsedTime * directionX;
-  boxY += velocity * elapsedTime * directionY;
-  
-  if (boxX > windowWidth - boxWidth) {
-    directionX = -1;
-  } else if (boxX < 0) {
-    directionX = 1;
-  }
-
-  if (boxY > windowHeight - boxHeight) {
-    directionY = -1;
-  } else if (boxY < 0) {
-    directionY = 1;
-  }
-  
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glPushMatrix();
@@ -81,6 +54,37 @@ void display(void) {
 
 void idle(void) {
   glutPostRedisplay();
+}
+
+void keyPressed(unsigned char key, int x, int y) {
+  int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+  int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+  
+  switch (key) {
+    case 'w':
+      if (boxY < windowHeight - boxHeight) {
+        boxY += velocity;
+      }
+      break;
+    case 'a':
+      if (boxX > 0) {
+        boxX -= velocity;
+      }
+      break;
+    case 's':
+      if (boxY > 0) {
+        boxY -= velocity;
+      }
+      break;
+    case 'd':
+      if (boxX < windowWidth - boxWidth) {
+        boxX += velocity;
+      }
+      break;
+      
+    default:
+      break;
+  }
 }
 
 void reshape(int width, int height) {
