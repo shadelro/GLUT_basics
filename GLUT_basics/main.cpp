@@ -26,6 +26,14 @@ int main(int argc, char * argv[])
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    glBegin(GL_QUADS);
+    glVertex2f(-.75f, -.75f);
+    glVertex2f(.75f, -.75f);
+    glVertex2f(.75f, .75f);
+    glVertex2f(-.75f, .75f);
+    glEnd();
+    
     glutSwapBuffers();
 }
 
