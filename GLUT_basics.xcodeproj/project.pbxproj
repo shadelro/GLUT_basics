@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A8E4B59A17E5354B0088179E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8E4B59917E5354B0088179E /* main.cpp */; };
 		A8E4B59C17E5354B0088179E /* GLUT_basics.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A8E4B59B17E5354B0088179E /* GLUT_basics.1 */; };
+		A8E4B5A417E535920088179E /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E4B5A217E535920088179E /* GLUT.framework */; };
+		A8E4B5A517E535920088179E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E4B5A317E535920088179E /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,8 @@
 		A8E4B59617E5354B0088179E /* GLUT_basics */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GLUT_basics; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8E4B59917E5354B0088179E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A8E4B59B17E5354B0088179E /* GLUT_basics.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = GLUT_basics.1; sourceTree = "<group>"; };
+		A8E4B5A217E535920088179E /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GLUT.framework; sourceTree = "<group>"; };
+		A8E4B5A317E535920088179E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenGL.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8E4B5A417E535920088179E /* GLUT.framework in Frameworks */,
+				A8E4B5A517E535920088179E /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +50,8 @@
 		A8E4B58D17E5354B0088179E = {
 			isa = PBXGroup;
 			children = (
+				A8E4B5A217E535920088179E /* GLUT.framework */,
+				A8E4B5A317E535920088179E /* OpenGL.framework */,
 				A8E4B59817E5354B0088179E /* GLUT_basics */,
 				A8E4B59717E5354B0088179E /* Products */,
 			);
@@ -186,6 +194,10 @@
 		A8E4B5A017E5354B0088179E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -193,6 +205,10 @@
 		A8E4B5A117E5354B0088179E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -1,18 +1,40 @@
-//
-//  main.cpp
-//  GLUT_basics
-//
-//  Created by Shadel,Brent on 9/14/13.
-//  Copyright (c) 2013 Shadel,Brent. All rights reserved.
-//
+#include <stdlib.h>
+#include <GLUT/glut.h>
 
-#include <iostream>
+void display();
+void idle();
+void reshape(int width, int height);
 
-int main(int argc, const char * argv[])
+int main(int argc, char * argv[])
 {
+    glutInit(&argc, argv);
+    
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitWindowSize(640, 480);
+    
+    glutCreateWindow("GLUT Basics");
 
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutIdleFunc(idle);
+    
+    glutMainLoop();
+    
+    return EXIT_SUCCESS;
 }
 
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glutSwapBuffers();
+}
+
+void idle(void)
+{
+    glutPostRedisplay();
+}
+
+void reshape(int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
