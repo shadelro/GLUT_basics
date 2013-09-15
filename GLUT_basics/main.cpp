@@ -4,13 +4,26 @@
 GLfloat defaultWindowWidth = 640;
 GLfloat defaultWindowHeight = 480;
 
-GLfloat boxWidth = 32.0f;
-GLfloat boxHeight = 32.0f;
+int lastFrameTime = 0;
 
-GLfloat boxX = (defaultWindowWidth / 2) - (boxWidth / 2);
-GLfloat boxY = 0.0f;
+GLfloat playerWidth = 32.0f;
+GLfloat playerHeight = 32.0f;
 
-GLfloat velocity = 4.0f;
+GLfloat playerX = (defaultWindowWidth / 2) - (playerWidth / 2);
+GLfloat playerY = (defaultWindowHeight / 2) - (playerHeight / 2);
+
+GLfloat playerVelocity = 4.0f;
+
+GLfloat enemyWidth = 64.0f;
+GLfloat enemyHeight = 64.0f;
+
+GLfloat enemyX = 0.0f;
+GLfloat enemyY = 0.0f;
+
+GLfloat enemyDirectionX = 1.0f;
+GLfloat enemyDirectionY = 1.0f;
+
+GLfloat enemyVelocity = 64.0f;
 
 void display();
 void keyPressed(unsigned char key, int x, int y);
@@ -36,16 +49,54 @@ int main(int argc, char * argv[]) {
 }
 
 void display(void) {
+  if (lastFrameTime == 0) {
+    lastFrameTime = glutGet(GLUT_ELAPSED_TIME);
+  }
+  
+  int now = glutGet(GLUT_ELAPSED_TIME);
+  int elapsedMilliseconds = now - lastFrameTime;
+  float elapsedTime = elapsedMilliseconds / 1000.0f;
+  lastFrameTime = now;
+  
+  int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+  int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+  
+  enemyX += enemyVelocity * elapsedTime * enemyDirectionX;
+  enemyY += enemyVelocity * elapsedTime * enemyDirectionY;
+  
+  if (enemyX > windowWidth - enemyWidth) {
+    enemyDirectionX = -1;
+  } else if (enemyX < 0) {
+    enemyDirectionX = 1;
+  }
+  
+  if (enemyY > windowHeight - enemyHeight) {
+    enemyDirectionY = -1;
+  } else if (enemyY < 0) {
+    enemyDirectionY = 1;
+  }
+  
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glPushMatrix();
-  glTranslatef(boxX, boxY, 0);
-  
+  glColor3f(1.0f, 0.0f, 0.0f);
+  glTranslatef(enemyX, enemyY, 0);
   glBegin(GL_QUADS);
   glVertex2f(0.0f, 0.0f);
-  glVertex2f(boxWidth, 0.0f);
-  glVertex2f(boxWidth, boxHeight);
-  glVertex2f(0.0f, boxHeight);
+  glVertex2f(enemyWidth, 0.0f);
+  glVertex2f(enemyWidth, enemyHeight);
+  glVertex2f(0.0f, enemyHeight);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glColor3f(1.0f, 1.0f, 1.0f);
+  glTranslatef(playerX, playerY, 0);
+  glBegin(GL_QUADS);
+  glVertex2f(0.0f, 0.0f);
+  glVertex2f(playerWidth, 0.0f);
+  glVertex2f(playerWidth, playerHeight);
+  glVertex2f(0.0f, playerHeight);
   glEnd();
   glPopMatrix();
   
@@ -62,23 +113,23 @@ void keyPressed(unsigned char key, int x, int y) {
   
   switch (key) {
     case 'w':
-      if (boxY < windowHeight - boxHeight) {
-        boxY += velocity;
+      if (playerY < windowHeight - playerHeight) {
+        playerY += playerVelocity;
       }
       break;
     case 'a':
-      if (boxX > 0) {
-        boxX -= velocity;
+      if (playerX > 0) {
+        playerX -= playerVelocity;
       }
       break;
     case 's':
-      if (boxY > 0) {
-        boxY -= velocity;
+      if (playerY > 0) {
+        playerY -= playerVelocity;
       }
       break;
     case 'd':
-      if (boxX < windowWidth - boxWidth) {
-        boxX += velocity;
+      if (playerX < windowWidth - playerWidth) {
+        playerX += playerVelocity;
       }
       break;
       
