@@ -1,29 +1,26 @@
 #include <stdlib.h>
 #include <GLUT/glut.h>
+#include "player.h"
+#include "enemy.h"
+
+int lastFrameTime = 0;
 
 GLfloat defaultWindowWidth = 640;
 GLfloat defaultWindowHeight = 480;
 
-int lastFrameTime = 0;
-
 GLfloat playerWidth = 32.0f;
 GLfloat playerHeight = 32.0f;
-
-GLfloat playerX = (defaultWindowWidth / 2) - (playerWidth / 2);
-GLfloat playerY = (defaultWindowHeight / 2) - (playerHeight / 2);
-
 GLfloat playerVelocity = 4.0f;
 
 GLfloat enemyWidth = 64.0f;
 GLfloat enemyHeight = 64.0f;
+GLfloat enemyVelocity = 32.0f;
 
-GLfloat enemyX = 0.0f;
-GLfloat enemyY = 0.0f;
-
-GLfloat enemyDirectionX = 1.0f;
-GLfloat enemyDirectionY = 1.0f;
-
-GLfloat enemyVelocity = 64.0f;
+Player player(playerWidth, playerHeight,
+              (defaultWindowWidth / 2) - (playerWidth / 2),
+              (defaultWindowHeight / 2) - (playerHeight / 2),
+              playerVelocity);
+Enemy enemy(enemyWidth, enemyHeight, 0.0f, 0.0f, enemyVelocity, 1.0f, 1.0f);
 
 void display();
 void keyPressed(unsigned char key, int x, int y);
@@ -32,7 +29,7 @@ void reshape(int width, int height);
 
 int main(int argc, char * argv[]) {
   glutInit(&argc, argv);
-  
+    
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowSize(defaultWindowWidth, defaultWindowHeight);
   
@@ -61,42 +58,44 @@ void display(void) {
   int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
   int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
   
-  enemyX += enemyVelocity * elapsedTime * enemyDirectionX;
-  enemyY += enemyVelocity * elapsedTime * enemyDirectionY;
+  enemy.SetX(enemy.GetX() +
+             enemy.GetVelocity() * elapsedTime * enemy.GetDirectionX());
+  enemy.SetY(enemy.GetY() +
+             enemy.GetVelocity() * elapsedTime * enemy.GetDirectionY());
   
-  if (enemyX > windowWidth - enemyWidth) {
-    enemyDirectionX = -1;
-  } else if (enemyX < 0) {
-    enemyDirectionX = 1;
+  if (enemy.GetX() > windowWidth - enemy.GetWidth()) {
+    enemy.SetDirectionX(-1);
+  } else if (enemy.GetX() < 0) {
+    enemy.SetDirectionX(1);
   }
   
-  if (enemyY > windowHeight - enemyHeight) {
-    enemyDirectionY = -1;
-  } else if (enemyY < 0) {
-    enemyDirectionY = 1;
+  if (enemy.GetY() > windowHeight - enemy.GetHeight()) {
+    enemy.SetDirectionY(-1);
+  } else if (enemy.GetY() < 0) {
+    enemy.SetDirectionY(1);
   }
   
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glPushMatrix();
   glColor3f(1.0f, 0.0f, 0.0f);
-  glTranslatef(enemyX, enemyY, 0);
+  glTranslatef(enemy.GetX(), enemy.GetY(), 0);
   glBegin(GL_QUADS);
   glVertex2f(0.0f, 0.0f);
-  glVertex2f(enemyWidth, 0.0f);
-  glVertex2f(enemyWidth, enemyHeight);
-  glVertex2f(0.0f, enemyHeight);
+  glVertex2f(enemy.GetWidth(), 0.0f);
+  glVertex2f(enemy.GetWidth(), enemy.GetHeight());
+  glVertex2f(0.0f, enemy.GetHeight());
   glEnd();
   glPopMatrix();
   
   glPushMatrix();
   glColor3f(1.0f, 1.0f, 1.0f);
-  glTranslatef(playerX, playerY, 0);
+  glTranslatef(player.GetX(), player.GetY(), 0);
   glBegin(GL_QUADS);
   glVertex2f(0.0f, 0.0f);
-  glVertex2f(playerWidth, 0.0f);
-  glVertex2f(playerWidth, playerHeight);
-  glVertex2f(0.0f, playerHeight);
+  glVertex2f(player.GetWidth(), 0.0f);
+  glVertex2f(player.GetWidth(), player.GetHeight());
+  glVertex2f(0.0f, player.GetHeight());
   glEnd();
   glPopMatrix();
   
@@ -113,23 +112,23 @@ void keyPressed(unsigned char key, int x, int y) {
   
   switch (key) {
     case 'w':
-      if (playerY < windowHeight - playerHeight) {
-        playerY += playerVelocity;
+      if (player.GetY() < windowHeight - player.GetHeight()) {
+        player.SetY(player.GetY() + player.GetVelocity());
       }
       break;
     case 'a':
-      if (playerX > 0) {
-        playerX -= playerVelocity;
+      if (player.GetX() > 0) {
+        player.SetX(player.GetX() - player.GetVelocity());
       }
       break;
     case 's':
-      if (playerY > 0) {
-        playerY -= playerVelocity;
+      if (player.GetY() > 0) {
+        player.SetY(player.GetY() - player.GetVelocity());
       }
       break;
     case 'd':
-      if (playerX < windowWidth - playerWidth) {
-        playerX += playerVelocity;
+      if (player.GetX() < windowWidth - player.GetWidth()) {
+        player.SetX(player.GetX() + player.GetVelocity());
       }
       break;
       
