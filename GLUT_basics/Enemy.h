@@ -26,6 +26,8 @@ public:
   Enemy(GLfloat width, GLfloat height, GLfloat x, GLfloat y, GLfloat velocity,
         GLfloat directionX, GLfloat directionY);
   
+  void Display();
+  
   GLfloat GetWidth();
   GLfloat GetHeight();
   GLfloat GetX();

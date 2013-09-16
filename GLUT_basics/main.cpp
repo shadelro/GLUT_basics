@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <GLUT/glut.h>
-#include "player.h"
-#include "enemy.h"
+#include "Player.h"
+#include "Enemy.h"
 
 int lastFrameTime = 0;
 
@@ -58,16 +58,16 @@ void display(void) {
   int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
   int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
   
-  enemy.SetX(enemy.GetX() +
-             enemy.GetVelocity() * elapsedTime * enemy.GetDirectionX());
-  enemy.SetY(enemy.GetY() +
-             enemy.GetVelocity() * elapsedTime * enemy.GetDirectionY());
-  
   if (enemy.GetX() > windowWidth - enemy.GetWidth()) {
     enemy.SetDirectionX(-1);
   } else if (enemy.GetX() < 0) {
     enemy.SetDirectionX(1);
   }
+  
+  enemy.SetX(enemy.GetX() +
+             enemy.GetVelocity() * elapsedTime * enemy.GetDirectionX());
+  enemy.SetY(enemy.GetY() +
+             enemy.GetVelocity() * elapsedTime * enemy.GetDirectionY());
   
   if (enemy.GetY() > windowHeight - enemy.GetHeight()) {
     enemy.SetDirectionY(-1);
@@ -77,27 +77,8 @@ void display(void) {
   
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
-  glPushMatrix();
-  glColor3f(1.0f, 0.0f, 0.0f);
-  glTranslatef(enemy.GetX(), enemy.GetY(), 0);
-  glBegin(GL_QUADS);
-  glVertex2f(0.0f, 0.0f);
-  glVertex2f(enemy.GetWidth(), 0.0f);
-  glVertex2f(enemy.GetWidth(), enemy.GetHeight());
-  glVertex2f(0.0f, enemy.GetHeight());
-  glEnd();
-  glPopMatrix();
-  
-  glPushMatrix();
-  glColor3f(1.0f, 1.0f, 1.0f);
-  glTranslatef(player.GetX(), player.GetY(), 0);
-  glBegin(GL_QUADS);
-  glVertex2f(0.0f, 0.0f);
-  glVertex2f(player.GetWidth(), 0.0f);
-  glVertex2f(player.GetWidth(), player.GetHeight());
-  glVertex2f(0.0f, player.GetHeight());
-  glEnd();
-  glPopMatrix();
+  enemy.Display();
+  player.Display();
   
   glutSwapBuffers();
 }
@@ -107,12 +88,9 @@ void idle(void) {
 }
 
 void keyPressed(unsigned char key, int x, int y) {
-  int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
-  int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
-  
   switch (key) {
     case 'w':
-      if (player.GetY() < windowHeight - player.GetHeight()) {
+      if (player.GetY() < glutGet(GLUT_WINDOW_HEIGHT) - player.GetHeight()) {
         player.SetY(player.GetY() + player.GetVelocity());
       }
       break;
@@ -127,7 +105,7 @@ void keyPressed(unsigned char key, int x, int y) {
       }
       break;
     case 'd':
-      if (player.GetX() < windowWidth - player.GetWidth()) {
+      if (player.GetX() < glutGet(GLUT_WINDOW_WIDTH) - player.GetWidth()) {
         player.SetX(player.GetX() + player.GetVelocity());
       }
       break;

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A825621717E679C8004D70F9 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A825621517E679C8004D70F9 /* player.cpp */; };
-		A825621A17E67A2D004D70F9 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A825621817E67A2D004D70F9 /* enemy.cpp */; };
+		A825621717E679C8004D70F9 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A825621517E679C8004D70F9 /* Player.cpp */; };
+		A825621A17E67A2D004D70F9 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A825621817E67A2D004D70F9 /* Enemy.cpp */; };
 		A8E4B59A17E5354B0088179E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8E4B59917E5354B0088179E /* main.cpp */; };
 		A8E4B59C17E5354B0088179E /* GLUT_basics.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A8E4B59B17E5354B0088179E /* GLUT_basics.1 */; };
 		A8E4B5A417E535920088179E /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E4B5A217E535920088179E /* GLUT.framework */; };
@@ -29,10 +29,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A825621517E679C8004D70F9 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
-		A825621617E679C8004D70F9 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
-		A825621817E67A2D004D70F9 /* enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy.cpp; sourceTree = "<group>"; };
-		A825621917E67A2D004D70F9 /* enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enemy.h; sourceTree = "<group>"; };
+		A825621517E679C8004D70F9 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		A825621617E679C8004D70F9 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		A825621817E67A2D004D70F9 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
+		A825621917E67A2D004D70F9 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		A8E4B59617E5354B0088179E /* GLUT_basics */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GLUT_basics; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8E4B59917E5354B0088179E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A8E4B59B17E5354B0088179E /* GLUT_basics.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = GLUT_basics.1; sourceTree = "<group>"; };
@@ -75,10 +75,10 @@
 			isa = PBXGroup;
 			children = (
 				A8E4B59917E5354B0088179E /* main.cpp */,
-				A825621817E67A2D004D70F9 /* enemy.cpp */,
-				A825621917E67A2D004D70F9 /* enemy.h */,
-				A825621517E679C8004D70F9 /* player.cpp */,
-				A825621617E679C8004D70F9 /* player.h */,
+				A825621817E67A2D004D70F9 /* Enemy.cpp */,
+				A825621917E67A2D004D70F9 /* Enemy.h */,
+				A825621517E679C8004D70F9 /* Player.cpp */,
+				A825621617E679C8004D70F9 /* Player.h */,
 				A8E4B59B17E5354B0088179E /* GLUT_basics.1 */,
 			);
 			path = GLUT_basics;
@@ -136,8 +136,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8E4B59A17E5354B0088179E /* main.cpp in Sources */,
-				A825621717E679C8004D70F9 /* player.cpp in Sources */,
-				A825621A17E67A2D004D70F9 /* enemy.cpp in Sources */,
+				A825621717E679C8004D70F9 /* Player.cpp in Sources */,
+				A825621A17E67A2D004D70F9 /* Enemy.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

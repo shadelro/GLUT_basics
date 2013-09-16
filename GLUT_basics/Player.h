@@ -23,6 +23,8 @@ private:
 public:
   Player();
   Player(GLfloat width, GLfloat height, GLfloat x, GLfloat y, GLfloat velocity);
+  
+  void Display();
 
   GLfloat GetWidth();
   GLfloat GetHeight();

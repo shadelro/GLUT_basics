@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Shadel,Brent. All rights reserved.
 //
 
-#include "enemy.h"
+#include "Enemy.h"
 
 Enemy::Enemy() {
   
@@ -21,6 +21,20 @@ Enemy::Enemy(GLfloat width, GLfloat height, GLfloat x, GLfloat y,
   SetVelocity(velocity);
   SetDirectionX(directionX);
   SetDirectionY(directionY);
+}
+
+void Enemy::Display() {
+  glPushMatrix();
+  glColor3f(1.0f, 0.0f, 0.0f);
+  glTranslatef(m_x, m_y, 0);
+  glBegin(GL_QUADS);
+  glVertex2f(0.0f, 0.0f);
+  glVertex2f(m_width, 0.0f);
+  glVertex2f(m_width, m_height);
+  glVertex2f(0.0f, m_height);
+  glEnd();
+  glPopMatrix();
+
 }
 
 GLfloat Enemy::GetWidth() {
